@@ -7,15 +7,27 @@ import org.apache.beam.runners.direct.DirectRunner;
 import org.apache.beam.sdk.io.kafka.KafkaIO;
 import org.apache.beam.sdk.options.*;
 import org.apache.beam.sdk.transforms.ParDo;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 import org.apache.beam.sdk.Pipeline;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 
 @SpringBootApplication
-public class AgepublisherApplication {
+public class AgepublisherApplication implements ApplicationListener<ContextRefreshedEvent> {
 
 	public static void main(String[] args) {
+		SpringApplication.run(AgepublisherApplication.class, args);
+	}
+
+	@Override
+	public void onApplicationEvent(ContextRefreshedEvent event) {
+		runBeamPipelineLine();
+	}
+
+	private void runBeamPipelineLine() {
 		PipelineOptions options = PipelineOptionsFactory.create();
 		options.setRunner(DirectRunner.class);
 		Pipeline pipeline = Pipeline.create(options);
