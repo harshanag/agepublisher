@@ -53,17 +53,10 @@
 
 		<dependency>
 			<groupId>org.apache.beam</groupId>
-			<artifactId>beam-runners-direct-java</artifactId>
-			<version>2.59.0</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.beam</groupId>
 			<artifactId>beam-sdks-java-io-kafka</artifactId>
 			<version>2.59.0</version>
 		</dependency>
 
-		<!-- Apache Beam Flink Runner -->
 		<dependency>
 			<groupId>org.apache.beam</groupId>
 			<artifactId>beam-runners-flink-1.17</artifactId>
@@ -71,18 +64,10 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.apache.beam</groupId>
-			<artifactId>beam-runners-direct-java</artifactId>
-			<version>2.45.0</version>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>3.21.12</version>
 		</dependency>
-
-		<!-- Apache Beam Direct Runner for testing -->
-		<dependency>
-			<groupId>org.apache.beam</groupId>
-			<artifactId>beam-runners-direct-java</artifactId>
-			<version>2.45.0</version>
-		</dependency>
-
 		<!-- Testing dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,9 +81,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-			<version>3.2.4</version>
+			<groupId>org.apache.beam</groupId>
+			<artifactId>beam-runners-direct-java</artifactId>
+			<version>2.59.0</version>
 		</dependency>
 	</dependencies>
 
