@@ -5,13 +5,13 @@ import java.time.LocalDate;
 public class Person {
     private String firstName;
     private String lastName;
-    private LocalDate dateOfBirth;
+    private String dateOfBirth;
 
     // Constructors
     public Person() {
     }
 
-    public Person(String firstName, String lastName, LocalDate dateOfBirth) {
+    public Person(String firstName, String lastName, String dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -34,11 +34,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public LocalDate getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

@@ -1,4 +1,3 @@
-
 services:
   zookeeper:
     image: zookeeper:3.8.0
@@ -21,3 +20,26 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE  # Set inter-broker listener name to INSIDE
     depends_on:
       - zookeeper
+
+  create-topics:
+    image: confluentinc/cp-kafka:latest  # Use the same image as Kafka
+    depends_on:
+      - kafka
+    command: >
+      bash -c "
+      sleep 15 &&
+      kafka-topics --create --topic CustomerInputTopic --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1 &&
+      kafka-topics --create --topic CustomerEVEN --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1 &&
+      kafka-topics --create --topic CustomerODD --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1"
+
+  springboot_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - kafka
+    environment:
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      SPRING_PROFILES_ACTIVE: docker

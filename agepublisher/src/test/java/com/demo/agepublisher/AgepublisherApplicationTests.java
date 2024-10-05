@@ -36,7 +36,7 @@ class AgepublisherApplicationTests {
 
 	@Test
 	public void testConsumeMessageEvenAge() {
-		Person person = new Person("John", "Doe", LocalDate.of(1990,1,1));
+		Person person = new Person("John", "Doe", "1990-01-01");
 		personDetailsPublishService.sendPersonDataToKafka(person);
 
 		verify(kafkaTemplate, times(1)).send(eq(KafkaTopics.CUSTOMER_EVEN.getTopicName()), anyString());
@@ -44,7 +44,7 @@ class AgepublisherApplicationTests {
 
 	@Test
 	public void testConsumeMessageOddAge() {
-		Person person = new Person("John", "Doe", LocalDate.of(1991,1,1));
+		Person person = new Person("John", "Doe", "1990-01-01");
 		personDetailsPublishService.sendPersonDataToKafka(person);
 
 		verify(kafkaTemplate, times(1)).send(eq(KafkaTopics.CUSTOMER_ODD.getTopicName()), anyString());
