@@ -10,7 +10,9 @@ public enum KafkaConstants {
     TOPIC_PROCESS_MESSAGES("ProcessMessages"),
 
     KEY_PREFIX_EVEN("even"),
-    KEY_PREFIX_ODD("odd");
+    KEY_PREFIX_ODD("odd"),
+
+    AGE_CALCULATION_DATE_FORMAT("yyyy-MM-dd");
 
     private final String name;
 

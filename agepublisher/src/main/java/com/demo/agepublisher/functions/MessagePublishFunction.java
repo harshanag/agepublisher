@@ -1,5 +1,6 @@
 package com.demo.agepublisher.functions;
 
+import com.demo.agepublisher.enums.KafkaConstants;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.values.KV;
 import org.apache.beam.sdk.io.kafka.KafkaIO;
@@ -19,7 +20,7 @@ public class MessagePublishFunction extends DoFn<KV<String, String>, Void> {
     @ProcessElement
     public void processElement(ProcessContext c) {
         KV<String, String> kv = c.element();
-        String topic = kv.getKey().equals("even") ? evenTopic : oddTopic;
+        String topic = kv.getKey().equals(KafkaConstants.KEY_PREFIX_EVEN.getValue()) ? evenTopic : oddTopic;
 
         KafkaIO.<String, String>write()
                 .withBootstrapServers(kafkaBootstrapServers)
