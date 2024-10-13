@@ -1,6 +1,6 @@
 package com.demo.agepublisher;
 
-import com.demo.agepublisher.enums.KafkaTopics;
+import com.demo.agepublisher.enums.KafkaConstants;
 import com.demo.agepublisher.functions.AgeProcessingFunction;
 import com.demo.agepublisher.functions.MessagePublishFunction;
 import org.apache.beam.runners.direct.DirectRunner;
@@ -33,20 +33,20 @@ public class AgepublisherApplication implements ApplicationListener<ContextRefre
 		Pipeline pipeline = Pipeline.create(options);
 
 		String kafkaBootstrapServers = "localhost:9092";
-		String inputTopic = KafkaTopics.CUSTOMER_INPUT.getTopicName();
-		String evenTopic = KafkaTopics.CUSTOMER_EVEN.getTopicName();
-		String oddTopic = KafkaTopics.CUSTOMER_ODD.getTopicName();
+		String inputTopic = KafkaConstants.CUSTOMER_INPUT.getValue();
+		String evenTopic = KafkaConstants.CUSTOMER_EVEN.getValue();
+		String oddTopic = KafkaConstants.CUSTOMER_ODD.getValue();
 
 		pipeline
-				.apply("ReadMessagesFromKafka",
+				.apply(KafkaConstants.TOPIC_READ_MESSAGES.getValue(),
 						KafkaIO.<String, String>read()
 								.withBootstrapServers(kafkaBootstrapServers)
 								.withTopic(inputTopic)
 								.withKeyDeserializer(StringDeserializer.class)
 								.withValueDeserializer(StringDeserializer.class)
 								.withoutMetadata())
-				.apply("ProcessMessages", ParDo.of(new AgeProcessingFunction()))
-				.apply("PublishMessages", ParDo.of(new MessagePublishFunction(kafkaBootstrapServers, evenTopic, oddTopic)));
+				.apply(KafkaConstants.TOPIC_PROCESS_MESSAGES.getValue(), ParDo.of(new AgeProcessingFunction()))
+				.apply(KafkaConstants.TOPIC_PUBLISH_MESSAGES.getValue(), ParDo.of(new MessagePublishFunction(kafkaBootstrapServers, evenTopic, oddTopic)));
 
 		pipeline.run().waitUntilFinish();
 	}

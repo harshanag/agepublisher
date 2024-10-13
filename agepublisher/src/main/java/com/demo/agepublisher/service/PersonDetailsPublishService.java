@@ -1,6 +1,6 @@
 package com.demo.agepublisher.service;
 
-import com.demo.agepublisher.enums.KafkaTopics;
+import com.demo.agepublisher.enums.KafkaConstants;
 import com.demo.agepublisher.model.Person;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,6 @@ public class PersonDetailsPublishService {
 
     public void sendPersonDataToKafka(Person person) {
         String message = person.getFirstName() + "," + person.getLastName() + "," + person.getDateOfBirth();
-        kafkaTemplate.send(KafkaTopics.CUSTOMER_INPUT.getTopicName(), message);
+        kafkaTemplate.send(KafkaConstants.CUSTOMER_INPUT.getValue(), message);
     }
 }
