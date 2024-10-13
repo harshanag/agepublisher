@@ -1,5 +1,6 @@
 package com.demo.agepublisher.functions;
 
+import com.demo.agepublisher.enums.KafkaConstants;
 import com.demo.agepublisher.util.AgeUtils;
 import org.apache.beam.sdk.transforms.DoFn;
 import org.apache.beam.sdk.values.KV;
@@ -17,9 +18,9 @@ public class AgeProcessingFunction extends DoFn<KV<String, String>, KV<String, S
 
         int age = calculateAge(dob);
         if (AgeUtils.isEven(age)) {
-            c.output(KV.of("even", message));
+            c.output(KV.of(KafkaConstants.KEY_PREFIX_EVEN.getValue(), message));
         } else {
-            c.output(KV.of("odd", message));
+            c.output(KV.of(KafkaConstants.KEY_PREFIX_ODD.getValue(), message));
         }
     }
 

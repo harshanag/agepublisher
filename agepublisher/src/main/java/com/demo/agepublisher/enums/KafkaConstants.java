@@ -7,15 +7,18 @@ public enum KafkaConstants {
 
     TOPIC_READ_MESSAGES("ReadMessagesFromKafka"),
     TOPIC_PUBLISH_MESSAGES("PublishMessages"),
-    TOPIC_PROCESS_MESSAGES("ProcessMessages");
+    TOPIC_PROCESS_MESSAGES("ProcessMessages"),
 
-    private final String topicName;
+    KEY_PREFIX_EVEN("even"),
+    KEY_PREFIX_ODD("odd");
 
-    KafkaConstants(String topicName) {
-        this.topicName = topicName;
+    private final String name;
+
+    KafkaConstants(String name) {
+        this.name = name;
     }
 
     public String getValue() {
-        return topicName;
+        return name;
     }
 }
